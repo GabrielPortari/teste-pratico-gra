@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS produtos_db;
+USE produtos_db;
+
+CREATE TABLE IF NOT EXISTS produtos (
+    id         INT          NOT NULL AUTO_INCREMENT,
+    nome       VARCHAR(100) NOT NULL,
+    preco      DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
