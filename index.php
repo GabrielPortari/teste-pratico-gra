@@ -5,6 +5,7 @@ require_once 'controller/productController.php';
 
 $controller = new ProdutoController($pdo);
 $action = $_GET['action'] ?? 'index';
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
 if ($action === 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 	$controller->create();
@@ -12,7 +13,7 @@ if ($action === 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($action === 'edit' && isset($_GET['id'])) {
-	$controller->edit($_GET['id']);
+	$controller->edit($_GET['id'], $page);
 	exit;
 }
 
@@ -26,4 +27,4 @@ if ($action === 'delete' && isset($_GET['id'])) {
 	exit;
 }
 
-$controller->index();
+$controller->index($page);

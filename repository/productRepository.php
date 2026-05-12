@@ -10,6 +10,18 @@ class ProdutoRepository {
         return $this->pdo->query("SELECT * FROM produtos")->fetchAll();
     }
 
+    public function getPaginated($limit, $offset) {
+        $stmt = $this->pdo->prepare("SELECT * FROM produtos ORDER BY id DESC LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function countAll() {
+        return (int) $this->pdo->query("SELECT COUNT(*) FROM produtos")->fetchColumn();
+    }
+
     public function getById($id) {
         $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
         $stmt->execute([':id' => $id]);
